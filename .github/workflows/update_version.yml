@@ -12,8 +12,6 @@ jobs:
     steps:
     - name: Check out repo
       uses: actions/checkout@v2
-      with:
-        token: ${{ secrets.REPO_TOKEN }}
 
     - name: Check latest version
       id: latest-version
