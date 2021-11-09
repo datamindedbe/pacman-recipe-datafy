@@ -1,0 +1,4 @@
+
+package() {
+	install -Dm755 bin/linux/amd64/datafy "${pkgdir}/usr/bin/datafy"
+}

@@ -1,4 +1,4 @@
 *
 !.gitignore
-!PKGBUILD
-!.github
+!PKGBUILD*
+!\.github/workflows/update_version.yml
