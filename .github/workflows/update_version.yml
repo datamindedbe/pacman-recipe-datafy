@@ -45,7 +45,7 @@ jobs:
         sli=($(sha256sum $pathlinux))
         sli=${sli[0]}
         DFSHASUM=$sli DFVERSION=$version envsubst < PKGBUILD-infotemplate > temp_info
-        cat temp_info PKGBUILD_actiontemplate > PKGBUILD
+        cat temp_info PKGBUILD-actiontemplate > PKGBUILD
         rm $pathlinux temp_info
 
     - name: Trigger a pull request if something changed
