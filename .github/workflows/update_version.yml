@@ -29,8 +29,8 @@ jobs:
     - name: Check if they are the same
       id: same
       run: |
-        current=${${{ steps.current.outputs.version }}}
-        latest=${${{ steps.latest.outpusts.version }}}
+        current=${{ steps.current.outputs.version }}
+        latest=${{ steps.latest.outputs.version }}
         echo $latest
         echo $current
         echo "::set-output name=version::$(if [ $latest == $current ]; then echo 'true'; else echo 'false'; fi)"
@@ -38,8 +38,8 @@ jobs:
     - name: Modify recipe if they are different
       if: steps.same.outputs.version == 'false'
       run: |
-        version=${${{ steps.latest.outputs.version }}}
-        old_version=${${{ steps.current.outputs.version }}}
+        version=${{ steps.latest.outputs.version }}
+        old_version=${{ steps.current.outputs.version }}
         pathlinux=datafy_linux.tar.gz
         curl -sL https://datafy-cp-artifacts.s3-eu-west-1.amazonaws.com/cli/${version}/datafy_linux_amd64.tar.gz -o $pathlinux
         sli=($(sha256sum $pathlinux))
