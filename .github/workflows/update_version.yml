@@ -29,17 +29,17 @@ jobs:
     - name: Check if they are the same
       id: same
       run: |
-        current=${${{ steps.current.version }}}
-        latest=${${{ steps.latest.version }}}
+        current=${${{ steps.current.outputs.version }}}
+        latest=${${{ steps.latest.outpusts.version }}}
         echo $latest
         echo $current
         echo "::set-output name=version::$(if [ $latest == $current ]; then echo 'true'; else echo 'false'; fi)"
 
     - name: Modify recipe if they are different
-      if: steps.same-version.same == 'false'
+      if: steps.same.outputs.version == 'false'
       run: |
-        version=${${{ steps.latest.version }}}
-        old_version=${${{ steps.current.version }}}
+        version=${${{ steps.latest.outputs.version }}}
+        old_version=${${{ steps.current.outputs.version }}}
         pathlinux=datafy_linux.tar.gz
         curl -sL https://datafy-cp-artifacts.s3-eu-west-1.amazonaws.com/cli/${version}/datafy_linux_amd64.tar.gz -o $pathlinux
         sli=($(sha256sum $pathlinux))
@@ -51,4 +51,4 @@ jobs:
     - name: Trigger a pull request if something changed
       uses: peter-evans/create-pull-request@v3
       with:
-        commit-message: Updated from version ${{ steps.current-version.current }} to ${{ steps.latest-version.latest }}
+        commit-message: Updated from version ${{ steps.current.outputs.version }} to ${{ steps.latest.outputs.version }}
